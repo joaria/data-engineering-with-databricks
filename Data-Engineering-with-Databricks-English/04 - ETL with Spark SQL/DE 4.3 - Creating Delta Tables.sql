@@ -94,8 +94,7 @@ OPTIONS (
   path = "${da.paths.datasets}/raw/sales-csv",
   header = "true",
   delimiter = "|"
-);
-
+)
 CREATE TABLE sales_delta AS
   SELECT * FROM sales_tmp_vw;
   
@@ -208,8 +207,8 @@ SELECT * FROM purchase_dates
 
 -- COMMAND ----------
 
--- INSERT INTO purchase_dates VALUES
--- (1, 600000000, 42.0, "2020-06-18")
+--INSERT INTO purchase_dates VALUES
+--(1, 600000000, 42.0, "2020-06-18")
 
 -- COMMAND ----------
 

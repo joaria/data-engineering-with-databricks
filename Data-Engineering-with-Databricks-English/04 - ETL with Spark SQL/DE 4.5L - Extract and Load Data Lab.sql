@@ -69,7 +69,18 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN> ${da.paths.datasets}/raw/events-kafka/
+CREATE TABLE IF NOT EXISTS events_json
+  (key BINARY, offset LONG, partition INTEGER, timestamp LONG, topic STRING, value BINARY)
+USING JSON
+OPTIONS(
+path = "${da.paths.datasets}/raw/events-kafka/"
+)
+
+
+-- COMMAND ----------
+
+--SELECT * FROM events_json;
+describe extended events_json;
 
 -- COMMAND ----------
 
@@ -100,7 +111,12 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+CREATE TABLE events_raw
+(key BINARY, offset LONG, partition INTEGER, timestamp LONG, topic STRING, value BINARY);
+
+-- COMMAND ----------
+
+DESCRIBE EXTENDED events_raw;
 
 -- COMMAND ----------
 
@@ -129,7 +145,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+INSERT INTO events_raw
+SELECT * FROM events_json;
 
 -- COMMAND ----------
 
@@ -140,8 +157,10 @@
 
 -- COMMAND ----------
 
--- TODO
-<FILL_IN>
+select * from events_raw;
+
+--select count(*) from events_raw;
+--select count(*) from events_json;
 
 -- COMMAND ----------
 
@@ -169,8 +188,12 @@
 
 -- COMMAND ----------
 
--- TODO
-<FILL_IN> ${da.paths.datasets}/raw/item-lookup
+CREATE TABLE item_lookup AS
+SELECT * FROM  parquet.`${da.paths.datasets}/raw/item-lookup`
+
+-- COMMAND ----------
+
+select * from item_lookup;
 
 -- COMMAND ----------
 
